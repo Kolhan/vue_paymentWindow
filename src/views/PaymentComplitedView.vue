@@ -1,3 +1,3 @@
 <template>
-  <RouterView />
+    Payment complited
 </template>

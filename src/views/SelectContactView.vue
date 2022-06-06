@@ -1,3 +1,3 @@
 <template>
-  <RouterView />
+    Select contact
 </template>
