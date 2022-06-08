@@ -3,7 +3,6 @@ import BtnRouter from '../components/BtnRouter.vue';
 import tInput from '../components/UI/tInput.vue';
 
 import tPageTemplate from '@/components/UI/tPageTemplate.vue';
-import tHeader from '@/components/UI/tHeader.vue';
 import tContainer from '@/components/UI/tContainer.vue';
 
 import { usePaymentStore } from '../stores/payment';
@@ -29,7 +28,7 @@ const { contact, method, amount } = storeToRefs(paymentStore)
             <tContainer>
                 <div>
                     <label>Select contact</label>
-                    <BtnRouter to="selectContact">{{ contact }}</BtnRouter>
+                    <BtnRouter to="selectContact">{{ contact.firstName }} {{ contact.lastName }}</BtnRouter>
                 </div>
                 
                 <div>

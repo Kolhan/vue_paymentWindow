@@ -7,10 +7,22 @@ import tHeader from '@/components/UI/tHeader.vue';
 import tContainer from '@/components/UI/tContainer.vue';
 
 import { usePaymentStore } from '../stores/payment';
+import { useContactStore } from '../stores/contact';
 import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
 
 const paymentStore = usePaymentStore()
 const { contact, method, amount } = storeToRefs(paymentStore)
+const contactStore = useContactStore()
+const { listContacts } = storeToRefs(contactStore)
+const router = useRouter() 
+
+
+const setContact = (item) => {
+    contact.value = item
+    router.push('/')
+}
+
 </script>
 
 <template>
@@ -27,7 +39,14 @@ const { contact, method, amount } = storeToRefs(paymentStore)
 
             <!-- CONTENT -->
             <tContainer>
-                
+                <div class="grid gap-2 ">
+                    <button class="grid text-center w-full leading-6 border border-gray-400 p-2" v-for="item in listContacts" 
+                        @click="setContact(item)"
+                    >
+                        <div>{{item.firstName}} {{item.lastName}}</div>
+                        <div class="text-base">{{item.email}}</div>
+                    </button>
+                </div>
 
 
 

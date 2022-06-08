@@ -1,11 +1,18 @@
 import { defineStore } from 'pinia'
+import type { TContact } from './contact'
+
+const _contact: TContact = {
+    firstName: 'Select contact',
+    lastName: '',
+    email: ''
+}
 
 export const usePaymentStore = defineStore({
   id: 'payment',
   state: () => ({
-    contact: 'Вася Пупкин',
+    contact: _contact,
     method: 'Картой',
-    amount: 4000
+    amount: 0
   }),
 //   getters: {
 //     doubleCount: (state) => state.counter * 2
