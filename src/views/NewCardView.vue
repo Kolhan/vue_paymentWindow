@@ -1,20 +1,35 @@
 <script setup lang="ts">
 // import BtnRouter from '../components/BtnRouter.vue';
 import BtnRouterBack from '@/components/BtnRouterBack.vue';
+
+import tPageTemplate from '@/components/UI/tPageTemplate.vue';
+import tHeader from '@/components/UI/tHeader.vue';
+import tContainer from '@/components/UI/tContainer.vue';
 </script>
 
 <template>
     <div class="page">
-        <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-md w-full space-y-8">   
-                <div>
-                    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">New card</h2>
-                </div>
-            
-                <BtnRouterBack>Back</BtnRouterBack>    
-                <BtnRouterBack>Save</BtnRouterBack>   
+        <tPageTemplate>
+            <!-- HEADER -->
+            <template v-slot:header>
+                <!-- <div class="text-center w-full">New contact</div> -->
+                <tHeader>
+                    <template v-slot:left><BtnRouterBack>Back</BtnRouterBack></template>
+                    New card
+                </tHeader>
+            </template>
 
-            </div>
-        </div>
+            <!-- CONTENT -->
+            <tContainer>
+                
+            </tContainer>
+
+            <!-- FOOTER -->
+            <template v-slot:footer>
+                <tContainer>
+                    <BtnRouterBack>Save</BtnRouterBack>
+                </tContainer>                
+            </template>
+        </tPageTemplate>
     </div>
 </template>
