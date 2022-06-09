@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed, reactive, toRefs } from 'vue';
 // import BtnRouter from '../components/BtnRouter.vue';
 import BtnRouterBack from '@/components/BtnRouterBack.vue';
 import tPageTemplate from '@/components/UI/tPageTemplate.vue';
@@ -10,18 +11,24 @@ import { useRouter } from 'vue-router';
 import { AddNewContact  } from '@/api'
 import type { TContact } from '../stores/contact';
 
-const contact: TContact = { 
-    firstName: 'Иван',
-    lastName: 'Пупкин',
-    email: 'test@mail.ru'
-}
+const contact: TContact = reactive({ 
+    firstName: '',
+    lastName: '',
+    email: ''
+})
 
 const router = useRouter()
-
 const addNewContact = () => {
     AddNewContact(contact)
     router.push('selectContact')
 }
+
+const { firstName, lastName, email } = toRefs(contact)
+const formValidate = computed(() => {
+    let result: Boolean = false
+    if(firstName.value!='' && lastName.value!='' && email.value!='')  result = true
+    return result
+})
 
 </script>
 
@@ -42,27 +49,25 @@ const addNewContact = () => {
                 <div class="grid gap-2">
                     <div>
                         <label>First Name</label>
-                        <input type="text" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="contact.firstName">
+                        <input type="text" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="firstName">
                     </div>
 
                     <div>
                         <label>Last name</label>
-                        <input type="text" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="contact.lastName">
+                        <input type="text" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="lastName">
                     </div>
 
                     <div>
                         <label>Email</label>
-                        <input type="email" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="contact.email">
+                        <input type="email" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="email">
                     </div>
-
-                    
                 </div>
             </tContainer>
 
             <!-- FOOTER -->
             <template v-slot:footer>
                 <tContainer>
-                    <tButton @click="addNewContact">Save</tButton>
+                    <tButton @click="addNewContact" :disabled="!formValidate">Save</tButton>
                 </tContainer>                
             </template>
         </tPageTemplate>
