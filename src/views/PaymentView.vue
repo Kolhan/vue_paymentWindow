@@ -7,12 +7,12 @@ import tContainer from '@/components/UI/tContainer.vue';
 
 import { usePaymentStore } from '../stores/payment';
 import { storeToRefs } from 'pinia'
-
+import { useRouter } from 'vue-router';
 
 
 const paymentStore = usePaymentStore()
 const { contact, method, amount } = storeToRefs(paymentStore)
-
+const router = useRouter()
 
 </script>
 
@@ -26,21 +26,35 @@ const { contact, method, amount } = storeToRefs(paymentStore)
 
             <!-- CONTENT -->
             <tContainer>
+                <div class="grid gap-4">
                 <div>
                     <label>Select contact</label>
-                    <BtnRouter to="selectContact">{{ contact.firstName }} {{ contact.lastName }}</BtnRouter>
+                    <input 
+                        type="text" 
+                        @click="router.push('selectContact')" 
+                        class="border border-gray-400 block w-full py-1 px-3 pb-3 placeholder-slate-400" 
+                        :value="contact.firstName + ' ' + contact.lastName" 
+                        placeholder="selectContact"
+                        readonly
+                    />
                 </div>
                 
                 <div>
                     <label>Select payment method</label>
-                    <BtnRouter to="selectMethod">{{ method }}</BtnRouter>
+                    <input 
+                        type="text" 
+                        @click="router.push('selectMethod')" 
+                        class="border border-gray-400 block w-full py-1 px-3 pb-3 placeholder-slate-400" 
+                        :value="method" 
+                        placeholder="selectContact"
+                        readonly
+                    />
                 </div>
                 
                 <div>
                     <label>Enter amount</label>
                     <input type="number" class="border border-gray-400 block w-full py-1 px-2" v-model="amount">
-                    <tInput/>
-                    {{amount}}
+                </div>
                 </div>
             </tContainer>
 

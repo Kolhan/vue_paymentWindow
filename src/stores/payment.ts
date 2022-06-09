@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import type { TContact } from './contact'
 
 const _contact: TContact = {
-    firstName: 'Select contact',
+    firstName: 'tap me',
     lastName: '',
     email: ''
 }
@@ -11,7 +11,7 @@ export const usePaymentStore = defineStore({
   id: 'payment',
   state: () => ({
     contact: _contact,
-    method: 'Картой',
+    method: 'tap me',
     amount: 0
   }),
 //   getters: {
