@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import BtnRouter from '../components/BtnRouter.vue';
+import { useRouter } from 'vue-router'
+import tButton from '@/components/UI/tButton.vue';
+import tContainer from '@/components/UI/tContainer.vue';
 
-
+const router = useRouter()
 </script>
 
 <template>
@@ -19,7 +21,7 @@ import BtnRouter from '../components/BtnRouter.vue';
             <div >Payment complited</div>
             <div>successfully</div>
         </div>
-        <BtnRouter to="/" class="mb-6 ml-6 mr-6 w-auto">Make another one</BtnRouter>
+        <tContainer><tButton @click="router.push('/')" >Make another one</tButton></tContainer> 
     </div>
 </template>
 

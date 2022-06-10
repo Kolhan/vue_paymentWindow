@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { onMounted, computed, onActivated, ref } from 'vue'
 import BtnRouter from '../components/BtnRouter.vue';
 import tInput from '../components/UI/tInput.vue';
+import tButton from '../components/UI/tButton.vue';
 
 import tPageTemplate from '@/components/UI/tPageTemplate.vue';
 import tContainer from '@/components/UI/tContainer.vue';
@@ -12,7 +14,24 @@ import { useRouter } from 'vue-router';
 
 const paymentStore = usePaymentStore()
 const { contact, method, amount } = storeToRefs(paymentStore)
+
 const router = useRouter()
+const setPay = () => {
+    router.push('paymentComplited')
+}
+
+let contactTitle = ref('')
+let methodTile = ref('')
+onMounted(() => {
+  contactTitle.value = paymentStore.getContactTitle
+  methodTile.value = paymentStore.getMethodTitle
+})
+
+const formValidate = computed(() => {
+    let result: Boolean = false
+    if(contactTitle && methodTile && amount.value > 0)  result = true
+    return result
+})
 
 </script>
 
@@ -27,41 +46,46 @@ const router = useRouter()
             <!-- CONTENT -->
             <tContainer>
                 <div class="grid gap-4">
-                <div>
-                    <label>Select contact</label>
-                    <input 
-                        type="text" 
-                        @click="router.push('selectContact')" 
-                        class="border border-gray-400 block w-full py-1 px-3 pb-3 placeholder-slate-400" 
-                        :value="contact.firstName + ' ' + contact.lastName" 
-                        placeholder="selectContact"
-                        readonly
-                    />
-                </div>
-                
-                <div>
-                    <label>Select payment method</label>
-                    <input 
-                        type="text" 
-                        @click="router.push('selectMethod')" 
-                        class="border border-gray-400 block w-full py-1 px-3 pb-3 placeholder-slate-400" 
-                        :value="method" 
-                        placeholder="selectContact"
-                        readonly
-                    />
-                </div>
-                
-                <div>
-                    <label>Enter amount</label>
-                    <input type="number" class="border border-gray-400 block w-full py-1 px-2" v-model="amount">
-                </div>
+                    <div>
+                        <label>Select contact</label>
+                        <input 
+                            type="text" 
+                            @click="router.push('selectContact')" 
+                            class="border border-gray-400 block w-full py-1 px-3 pb-3 placeholder-slate-400" 
+                            :value="contactTitle" 
+                            placeholder="tap me"
+                            readonly
+                        />
+                    </div>
+                    
+                    <div>
+                        <label>Select payment method</label>
+                        <input 
+                            type="text" 
+                            @click="router.push('selectMethod')" 
+                            class="border border-gray-400 block w-full py-1 px-3 pb-3 placeholder-slate-400" 
+                            :value="methodTile" 
+                            placeholder="tap me"
+                            readonly
+                        />
+                    </div>
+                    
+                    <div>
+                        <label>Enter amount</label>
+                        <input 
+                            type="number" 
+                            class="border border-gray-400 block w-full py-1 px-3 pb-3 placeholder-slate-400" 
+                            :value="amount" 
+                            placeholder="0"
+                        />
+                    </div>
                 </div>
             </tContainer>
 
             <!-- FOOTER -->
             <template v-slot:footer>
                 <tContainer>
-                    <BtnRouter to="paymentComplited">Pay</BtnRouter> 
+                    <tButton @click="setPay" :disabled="!formValidate">Pay</tButton>
                 </tContainer>                
             </template>
         </tPageTemplate>
