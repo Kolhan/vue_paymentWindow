@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export type TCard = {
     fullName: String,
-    CardNumber: Number,
+    cardNumber: Number,
     expiryDate: String
 }
 
@@ -16,7 +16,7 @@ const _listCards: TCard[] = []
 const _listBankAccounts: TBankAccount[] = []
 
 export const useMethodStore = defineStore({
-  id: 'contact',
+  id: 'method',
   state: () => ({ 
     listCards: _listCards,
     listBankAccounts: _listBankAccounts

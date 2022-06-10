@@ -15,60 +15,37 @@ export const usePaymentStore = defineStore({
   }),
   getters: {
     getMethodTitle: (state) => {
-      const _type: string  = typeof(state.method)
-      console.log('call GETTERS getMethodTitle - ' + _type);
-      
-      
-      
-
-      switch (_type) {
-        case 'TCard': return  state.method != undefined ? 'Card: ' + state.method.fullName : ''
-        case 'TBankAccount': return state.method != undefined ? 'Bank: ' + state.method.accountName : ''
-        default: return undefined
-      }
+        if (state.method === undefined) return undefined        
+       
+        const keysObj = Object.keys(state.method)
+        const keyTCard = ['fullName', 'cardNumber', 'expiryDate'] 
+        const keyTBankAccount = ['accountName', 'accountNumber', 'bsb'] 
+        
+        // TCARD
+        if (JSON.stringify(keysObj) == JSON.stringify(keyTCard))  {
+          return  'Card: ' + state.method.fullName
+        } 
+        // TBANKACCOUNT
+        if (JSON.stringify(keysObj) == JSON.stringify(keyTBankAccount))  {
+          return 'Bank: ' + state.method.accountName
+        }
     },
     getContactTitle: (state) => {
-      const item = state.contact
-      const _type: string  = typeof(item)
-      if (_type == 'object') {
-        // console.log('call GETTERS getContactTitle - ' + _type);
-        // console.log(item.firstName + ' ' + item.lastName)
-        return  item.firstName + ' ' + item.lastName
-      } 
-      else {
-        return undefined
-      }
-
-      // const _type: string  = typeof(state.contact)
-      // console.log('call GETTERS getContactTitle - ' + _type);
-      // // console.log(state.method instanceof TContact);
-      // console.log(state.contact)
-
-      // switch (_type) {
-      //   case 'TContact': return  state.contact != undefined ? state.contact.firstName + state.contact.lastName : ''
-      //   default: return undefined
-      // }
+        const item = state.contact
+        const _type: string  = typeof(item)
+        if (_type == 'object') {
+          return  item.firstName + ' ' + item.lastName
+        } 
+        else {
+          return undefined
+        }
     }
   },
-  // actions: {
-  //   getMethodTitle() {
-  //     const _type: string  = typeof(this.method)
-  //     console.log('call getMethodTitle - ' + _type);
-
-  //     switch (_type) {
-  //       case 'TCard': return  this.method != undefined ? 'Card: ' + this.method.fullName : ''
-  //       case 'TBankAccount': return this.method != undefined ? 'Bank: ' + this.method.accountName : ''
-  //       default: return undefined
-  //     }
-  //   },
-  //   getContactTitle() {
-  //     const _type: string  = typeof(this.method)
-  //     console.log('call getContactTitle - ' + _type);
-
-  //     switch (_type) {
-  //       case 'TContact': return  this.contact != undefined ? this.method.firstName + this.method.lastName : ''
-  //       default: return undefined
-  //     }
-  //   }
-  // }
+  actions: {
+    clearPayment() {
+      this.contact = undefined
+      this.method = undefined
+      this.amount = undefined
+    }
+  }
 })

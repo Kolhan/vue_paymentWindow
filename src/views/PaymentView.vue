@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { onMounted, computed, onActivated, ref } from 'vue'
-import BtnRouter from '../components/BtnRouter.vue';
-import tInput from '../components/UI/tInput.vue';
+import { onMounted, computed, onActivated, ref, reactive } from 'vue'
 import tButton from '../components/UI/tButton.vue';
 
 import tPageTemplate from '@/components/UI/tPageTemplate.vue';
@@ -10,15 +8,14 @@ import tContainer from '@/components/UI/tContainer.vue';
 import { usePaymentStore } from '../stores/payment';
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router';
+import { Pay } from '../api';
 
 
 const paymentStore = usePaymentStore()
-const { contact, method, amount } = storeToRefs(paymentStore)
+const { amount } = storeToRefs(paymentStore)
 
 const router = useRouter()
-const setPay = () => {
-    router.push('paymentComplited')
-}
+
 
 let contactTitle = ref('')
 let methodTile = ref('')
@@ -27,11 +24,25 @@ onMounted(() => {
   methodTile.value = paymentStore.getMethodTitle
 })
 
+const setPay = () => {
+    Pay()
+
+    router.push('paymentComplited')
+}
+
 const formValidate = computed(() => {
     let result: Boolean = false
-    if(contactTitle && methodTile && amount.value > 0)  result = true
+    if( (contactTitle.value != '' && contactTitle.value != undefined)
+        && (methodTile.value != '' && methodTile.value != undefined)
+        && amount.value > 0)  result = true
     return result
 })
+
+const onInputAmount = (event) => {
+    paymentStore.$patch((state) => {
+        state.amount = event.target.value
+    })
+}
 
 </script>
 
@@ -75,7 +86,8 @@ const formValidate = computed(() => {
                         <input 
                             type="number" 
                             class="border border-gray-400 block w-full py-1 px-3 pb-3 placeholder-slate-400" 
-                            :value="amount" 
+                            :onInput="onInputAmount" 
+                            :value = 'amount'
                             placeholder="0"
                         />
                     </div>
