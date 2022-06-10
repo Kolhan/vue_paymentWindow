@@ -38,7 +38,7 @@ const setMethod = (item) => {
 
             <!-- CONTENT -->
             <tContainer>
-                <label>Credit/debit cards</label>
+                <label v-if="listCards.length">Credit/debit cards</label>
                 <div class="grid gap-2 ">
                     <button class="grid text-center w-full leading-6 border border-gray-400 p-2" v-for="item in listCards" 
                         @click="setMethod(item)"
@@ -48,7 +48,7 @@ const setMethod = (item) => {
                     </button>
                 </div>
 
-                <label>Bank accounts</label>
+                <label v-if="listBankAccounts.length">Bank accounts</label>
                 <div class="grid gap-2 ">
                     <button class="grid text-center w-full leading-6 border border-gray-400 p-2" v-for="item in listBankAccounts" 
                         @click="setMethod(item)"
