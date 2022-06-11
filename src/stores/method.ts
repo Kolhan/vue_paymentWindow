@@ -20,5 +20,37 @@ export const useMethodStore = defineStore({
   state: () => ({ 
     listCards: _listCards,
     listBankAccounts: _listBankAccounts
-  })
+  }),
+  actions: {
+    addNewMethod(newMethod: TCard | TBankAccount) {
+      if (newMethod === undefined) return
+
+      const keysObj = Object.keys(newMethod)
+      const keyTCard = ['fullName', 'cardNumber', 'expiryDate'] 
+      const keyTBankAccount = ['accountName', 'accountNumber', 'bsb'] 
+
+      this.$patch(() => {
+          // TCARD
+          if (JSON.stringify(keysObj) == JSON.stringify(keyTCard))  {
+              this.listCards.push(newMethod)
+              localStorage['listCards'] = JSON.stringify(this.listCards);
+          } 
+          // TBANKACCOUNT
+          if (JSON.stringify(keysObj) == JSON.stringify(keyTBankAccount))  {
+              this.listBankAccounts.push(newMethod)
+              localStorage['listBankAccounts'] = JSON.stringify(this.listBankAccounts);
+          }
+      })
+    },
+    loadStorage() {
+      if (localStorage['listCards']) {
+        const list = JSON.parse(localStorage['listCards']);
+        this.listCards = list;
+      }
+      if (localStorage['listBankAccounts']) {
+        const list = JSON.parse(localStorage['listBankAccounts']);
+        this.listBankAccounts = list;
+      }
+    }
+  }
 })

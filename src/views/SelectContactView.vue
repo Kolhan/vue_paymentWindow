@@ -5,6 +5,7 @@ import BtnRouterBack from '@/components/BtnRouterBack.vue';
 import tPageTemplate from '@/components/UI/tPageTemplate.vue';
 import tHeader from '@/components/UI/tHeader.vue';
 import tContainer from '@/components/UI/tContainer.vue';
+import { onMounted } from 'vue';
 
 import { usePaymentStore } from '../stores/payment';
 import { useContactStore } from '../stores/contact';
@@ -22,6 +23,11 @@ const setContact = (item) => {
     contact.value = item
     router.push('/')
 }
+
+onMounted(() => {
+    //Load from localStorage in store
+    contactStore.loadStorage()
+})
 
 </script>
 

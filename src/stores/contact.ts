@@ -14,12 +14,18 @@ export const useContactStore = defineStore({
     listContacts: _listContacts
   }),
   actions: {
-    saveStorage() {
-      localStorage.setItem('listContacts', JSON.stringify(this.listContacts));
+    addNewContact(newContact: TContact) {
+      this.$patch(() => {
+        this.listContacts.push(newContact)
+      })
+
+      localStorage['listContacts'] = JSON.stringify(this.listContacts);
     },
     loadStorage() {
-      const list = localStorage.getItem('listContacts')
-      if (list != undefined) this.listContacts = JSON.parse(list);
+      if (localStorage['listContacts']) {
+        const list = JSON.parse(localStorage['listContacts']);
+        this.listContacts = list;
+      }
     }
   }
 })

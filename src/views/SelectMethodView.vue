@@ -6,6 +6,8 @@ import tPageTemplate from '@/components/UI/tPageTemplate.vue';
 import tHeader from '@/components/UI/tHeader.vue';
 import tContainer from '@/components/UI/tContainer.vue';
 
+import { onMounted } from 'vue';
+
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 import { usePaymentStore } from '../stores/payment';
@@ -22,6 +24,11 @@ const setMethod = (item) => {
     method.value = item
     router.push('/')
 }
+
+onMounted(() => {
+    //Load from localStorage in store
+    methodStore.loadStorage()
+})
 </script>
 
 <template>
@@ -38,35 +45,38 @@ const setMethod = (item) => {
 
             <!-- CONTENT -->
             <tContainer>
-                <label v-if="listCards.length">Credit/debit cards</label>
-                <div class="grid gap-2 ">
-                    <button class="grid text-center w-full leading-6 border border-gray-400 p-2" v-for="item in listCards" 
-                        @click="setMethod(item)"
-                    >
-                        <div>{{item.fullName}}</div>
-                        <div class="text-base">{{item.cardNumber}} {{item.expiryDate}}</div>
-                    </button>
+                <div class="grid gap-4">
+                    <div>
+                        <label v-if="listCards.length">Credit/debit cards</label>
+                        <div class="grid gap-2 ">
+                            <button class="grid text-center w-full leading-6 border border-gray-400 p-2" v-for="item in listCards" 
+                                @click="setMethod(item)"
+                            >
+                                <div>{{item.fullName}}</div>
+                                <div class="text-base">{{item.cardNumber}} {{item.expiryDate}}</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label v-if="listBankAccounts.length">Bank accounts</label>
+                        <div class="grid gap-2 ">
+                            <button class="grid text-center w-full leading-6 border border-gray-400 p-2" v-for="item in listBankAccounts" 
+                                @click="setMethod(item)"
+                            >
+                                <div>{{item.accountName}} </div>
+                                <div class="text-base">{{item.accountNumber}} {{item.bsb}}</div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
-                <label v-if="listBankAccounts.length">Bank accounts</label>
-                <div class="grid gap-2 ">
-                    <button class="grid text-center w-full leading-6 border border-gray-400 p-2" v-for="item in listBankAccounts" 
-                        @click="setMethod(item)"
-                    >
-                        <div>{{item.accountName}} </div>
-                        <div class="text-base">{{item.accountNumber}} {{item.bsb}}</div>
-                    </button>
-                </div>
-
-
-
             </tContainer>
 
             <!-- FOOTER -->
             <!-- <template v-slot:footer>
                 <tContainer>
 
-                </tContainer>                
+                </tContainer>
             </template> -->
         </tPageTemplate>
     </div>

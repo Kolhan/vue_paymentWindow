@@ -15,16 +15,16 @@ export const usePaymentStore = defineStore({
   }),
   getters: {
     getMethodTitle: (state) => {
-        if (state.method === undefined) return undefined        
-       
+        if (state.method === undefined) return undefined
+
         const keysObj = Object.keys(state.method)
-        const keyTCard = ['fullName', 'cardNumber', 'expiryDate'] 
-        const keyTBankAccount = ['accountName', 'accountNumber', 'bsb'] 
+        const keyTCard = ['fullName', 'cardNumber', 'expiryDate']
+        const keyTBankAccount = ['accountName', 'accountNumber', 'bsb']
         
         // TCARD
         if (JSON.stringify(keysObj) == JSON.stringify(keyTCard))  {
           return  'Card: ' + state.method.fullName
-        } 
+        }
         // TBANKACCOUNT
         if (JSON.stringify(keysObj) == JSON.stringify(keyTBankAccount))  {
           return 'Bank: ' + state.method.accountName
@@ -35,7 +35,7 @@ export const usePaymentStore = defineStore({
         const _type: string  = typeof(item)
         if (_type == 'object') {
           return  item.firstName + ' ' + item.lastName
-        } 
+        }
         else {
           return undefined
         }

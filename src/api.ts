@@ -10,31 +10,12 @@ import { usePaymentStore } from './stores/payment';
 
 export const AddNewContact = (contact:TContact) => {
     const contactStore = useContactStore()
-
-    contactStore.$patch((state) => {
-        state.listContacts.push(contact)
-    })
+    contactStore.addNewContact(contact)
 }
 
 export const AddNewMethod = (method:TCard | TBankAccount) => {
-    if (method === undefined) return
-
     const methodStore = useMethodStore()
-
-    const keysObj = Object.keys(method)
-    const keyTCard = ['fullName', 'cardNumber', 'expiryDate'] 
-    const keyTBankAccount = ['accountName', 'accountNumber', 'bsb'] 
-
-    methodStore.$patch((state) => {
-        // TCARD
-        if (JSON.stringify(keysObj) == JSON.stringify(keyTCard))  {
-            state.listCards.push(method)
-        } 
-        // TBANKACCOUNT
-        if (JSON.stringify(keysObj) == JSON.stringify(keyTBankAccount))  {
-            state.listBankAccounts.push(method)
-        }
-    })
+    methodStore.addNewMethod(method)    
 }
 
 export const Pay = () => {
