@@ -46,7 +46,7 @@ onMounted(() => {
             <!-- CONTENT -->
             <tContainer>
                 <div class="grid gap-2 ">
-                    <button class="grid text-center w-full leading-6 border border-gray-400 p-2" v-for="item in listContacts" 
+                    <button class="grid text-center w-full leading-6 border border-gray-400 p-2" v-for="(item, index) in listContacts" :key="index"
                         @click="setContact(item)"
                     >
                         <div>{{item.firstName}} {{item.lastName}}</div>

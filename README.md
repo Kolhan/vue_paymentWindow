@@ -1,6 +1,6 @@
 # vue_paymentWindow
 
-This template should help get you started developing with Vue 3 in Vite.
+stack: Vue 3(Composition API) in Vite. Store - Pinia. TypeScript. Tailwindcss.
 
 ## Recommended IDE Setup
 

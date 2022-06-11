@@ -18,7 +18,7 @@ const props = defineProps({
         <div class="h-8"></div>
         <div>{{fullName}}</div>
         <div class="flex justify-between text-base">
-            <div>{{cardNumber}}</div>
+            <div>{{'****' + (''+props.cardNumber).slice(-4)}}</div>
             <div>{{expiryDate}}</div>
         </div>
     </div>
