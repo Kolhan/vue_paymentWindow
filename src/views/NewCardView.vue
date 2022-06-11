@@ -9,6 +9,7 @@ import tPageTemplate from '@/components/UI/tPageTemplate.vue';
 import tHeader from '@/components/UI/tHeader.vue';
 import tContainer from '@/components/UI/tContainer.vue';
 import tTabs from '@/components/UI/tTabs.vue';
+import tInput from '@/components/UI/tInput.vue';
 import tButton from '@/components/UI/tButton.vue';
 import type { TTab } from '@/components/UI/tTabs.vue';
 import type { TCard, TBankAccount } from '@/stores/method';
@@ -96,17 +97,17 @@ const addNewMethod = () => {
                         <div class="grid gap-2">
                             <div>
                                 <label>Full Name</label>
-                                <input type="text" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="newCard.fullName">
+                                <tInput type="text" :value="newCard.fullName" @input="(e) => newCard.fullName =e.target.value"/>
                             </div>
 
                             <div>
                                 <label>Card number</label>
-                                <input type="number" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="newCard.cardNumber">
+                                <tInput type="number" :value="newCard.cardNumber" @input="(e) => newCard.cardNumber =e.target.value"/>
                             </div>
 
                             <div>
                                 <label>Expiry date</label>
-                                <input type="text" class="border border-gray-400 block w-full py-1 px-3 pb-3" placeholder="MM/YY" v-model="newCard.expiryDate">
+                                <tInput type="text" :value="newCard.expiryDate" @input="(e) => newCard.expiryDate =e.target.value" placeholder="MM/YY"/>
                             </div>
                         </div>
                     </tContainer>
@@ -118,17 +119,17 @@ const addNewMethod = () => {
                         <div class="grid gap-2">
                             <div>
                                 <label>Account Name</label>
-                                <input type="text" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="newBank.accountName">
+                                <tInput type="text" :value="newBank.accountName" @input="(e) => newBank.accountName =e.target.value"/>
                             </div>
 
                             <div>
                                 <label>Account number</label>
-                                <input type="number" class="border border-gray-400 block w-full py-1 px-3 pb-3" placeholder="##########" v-model="newBank.accountNumber">
+                                <tInput type="number" :value="newBank.accountNumber" @input="(e) => newBank.accountNumber =e.target.value" placeholder="##########"/>
                             </div>
 
                             <div>
                                 <label>BSB</label>
-                                <input type="text" class="border border-gray-400 block w-full py-1 px-3 pb-3" placeholder="###-###" v-model="newBank.bsb">
+                                <tInput type="text" :value="newBank.bsb" @input="(e) => newBank.bsb =e.target.value" placeholder="###-###"/>
                             </div>
                         </div>
                     </tContainer>
@@ -139,7 +140,7 @@ const addNewMethod = () => {
             <template v-slot:footer>
                 <tContainer>
                     <tButton @click="addNewMethod" :disabled="!formValidate">Save</tButton>
-                </tContainer>                
+                </tContainer>
             </template>
         </tPageTemplate>
     </div>

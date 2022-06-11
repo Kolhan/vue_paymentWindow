@@ -4,6 +4,7 @@ import tButton from '../components/UI/tButton.vue';
 
 import tPageTemplate from '@/components/UI/tPageTemplate.vue';
 import tContainer from '@/components/UI/tContainer.vue';
+import tInput from '@/components/UI/tInput.vue';
 
 import { usePaymentStore } from '../stores/payment';
 import { storeToRefs } from 'pinia'
@@ -59,11 +60,10 @@ const onInputAmount = (event) => {
                 <div class="grid gap-4">
                     <div>
                         <label>Select contact</label>
-                        <input 
+                        <tInput 
                             type="text" 
-                            @click="router.push('selectContact')" 
-                            class="border border-gray-400 block w-full py-1 px-3 pb-3 placeholder-slate-400" 
                             :value="contactTitle" 
+                            @click="router.push('selectContact')" 
                             placeholder="tap me"
                             readonly
                         />
@@ -71,11 +71,10 @@ const onInputAmount = (event) => {
                     
                     <div>
                         <label>Select payment method</label>
-                        <input 
+                        <tInput 
                             type="text" 
-                            @click="router.push('selectMethod')" 
-                            class="border border-gray-400 block w-full py-1 px-3 pb-3 placeholder-slate-400" 
                             :value="methodTile" 
+                            @click="router.push('selectMethod')" 
                             placeholder="tap me"
                             readonly
                         />
@@ -83,11 +82,10 @@ const onInputAmount = (event) => {
                     
                     <div>
                         <label>Enter amount</label>
-                        <input 
+                        <tInput 
                             type="number" 
-                            class="border border-gray-400 block w-full py-1 px-3 pb-3 placeholder-slate-400" 
-                            :onInput="onInputAmount" 
-                            :value = 'amount'
+                            :value="amount" 
+                            @input="onInputAmount" 
                             placeholder="0"
                         />
                     </div>
@@ -98,7 +96,7 @@ const onInputAmount = (event) => {
             <template v-slot:footer>
                 <tContainer>
                     <tButton @click="setPay" :disabled="!formValidate">Pay</tButton>
-                </tContainer>                
+                </tContainer>
             </template>
         </tPageTemplate>
 <!-- 

@@ -6,6 +6,7 @@ import tPageTemplate from '@/components/UI/tPageTemplate.vue';
 import tHeader from '@/components/UI/tHeader.vue';
 import tContainer from '@/components/UI/tContainer.vue';
 import tButton from '@/components/UI/tButton.vue';
+import tInput from '@/components/UI/tInput.vue';
 import { useRouter } from 'vue-router';
 
 import { AddNewContact  } from '@/api'
@@ -49,17 +50,17 @@ const formValidate = computed(() => {
                 <div class="grid gap-2">
                     <div>
                         <label>First Name</label>
-                        <input type="text" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="firstName">
+                        <tInput type="text" :value="firstName" @input="(e) => firstName =e.target.value"/>
                     </div>
 
                     <div>
                         <label>Last name</label>
-                        <input type="text" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="lastName">
+                        <tInput type="text" :value="lastName" @input="(e) => lastName =e.target.value"/>
                     </div>
 
                     <div>
                         <label>Email</label>
-                        <input type="email" class="border border-gray-400 block w-full py-1 px-3 pb-3" v-model="email">
+                        <tInput type="email" :value="email" @input="(e) => email =e.target.value"/>
                     </div>
                 </div>
             </tContainer>
